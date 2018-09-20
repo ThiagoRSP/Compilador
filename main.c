@@ -5,11 +5,11 @@
 FILE *fp;
     char *arquivo = "nome.txt";
     char *result;
-    char linha[100];
-    char programa[100];
+    char linha[1000];
+    char programa[1000];
     int tamanho;
     int indice = 0;
-    char lexema[10], token[10], valor[10];
+    char lexema[100], token[100], valor[100];
 
 void nextchar(){
     switch(programa[indice]){
@@ -48,6 +48,17 @@ void nextchar(){
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
         break;
 
+        case '<':
+            if (programa[indice + 1] == '-')
+            {
+                strcpy(lexema,"<-");
+                strcpy(token,"attr");
+                strcpy(valor,"");
+                printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+            }
+            break;
+
+
         case 'r':
             if (programa[indice + 1] == 'e')
             {
@@ -55,31 +66,194 @@ void nextchar(){
                 {
                     if (programa[indice + 3] == 'l')
                     {
-                        strcpy(lexema,"real");
-                        strcpy(token,"type");
-                        strcpy(valor,"");
-                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+                        if (programa[indice + 4] == '\n' || programa[indice + 4] == ' ' || programa[indice + 4] == feof(fp))
+                        {
+                            strcpy(lexema,"real");
+                            strcpy(token,"type");
+                            strcpy(valor,"");
+                            printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+                        }
+                        
                     }
                     else if (programa[indice + 3] == 'd')
                     {
-                        strcpy(lexema,"read");
-                        strcpy(token,"read");
-                        strcpy(valor,"");
-                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                        if (programa[indice + 4] == '\n' || programa[indice + 4] == ' '|| programa[indice + 4] == feof(fp))
+                        {
+                            strcpy(lexema,"read");
+                            strcpy(token,"read");
+                            strcpy(valor,"");
+                            printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                        }
                     }
                 }
             }
             else{
-                printf("\nYeah\n");
+                printf("%c",programa[indice-1]);
             }
         break;
         
 
+        case 'i':
+            if (programa[indice + 1] == 'n')
+            {
+                if (programa[indice + 2] == 't')
+                {
+                    if (programa[indice + 3] == 'e')
+                    {
+                        if(programa[indice + 4] == 'g')
+                        {
+                            if(programa[indice + 5] == 'e')
+                            {
+                                if(programa[indice + 6] == 'r')
+                                {
+                                    if (programa[indice + 7] == '\n' || programa[indice + 7] == ' ' || programa[indice + 7] != feof(fp))
+                                    {
+                                        strcpy(lexema,"integer");
+                                        strcpy(token,"type");
+                                        strcpy(valor,"");
+                                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                    }
+                                 }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                printf("%c",programa[indice-1]);
+            }
+        break;  
+
+        case 'b':
+                if (programa[indice + 1] == 'e')
+                {
+                    if (programa[indice + 2] == 'g')
+                    {
+                       
+                            if (programa[indice + 4] == 'i')
+                            {
+                                if(programa[indice + 5] == 'n')
+                                {  
+                                    if (programa[indice + 6] == '\n' || programa[indice + 6] == ' '|| programa[indice + 6] == feof(fp))
+                                    {
+                                        strcpy(lexema,"begin");
+                                        strcpy(token,"delimeter");
+                                        strcpy(valor,"");
+                                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                    }
+                                }
+                            }
+                        
+                    }
+                }
+                else{
+                    printf("%c",programa[indice-1]);
+                }
+            break;
+
+            case 'w':
+                if (programa[indice + 1] == 'r')
+                    {
+                        if (programa[indice + 2] == 'i')
+                        {
+                            if (programa[indice + 3] == 't')
+                            {
+                                if(programa[indice + 4] == 'e')
+                                {  
+                                    if (programa[indice + 5] == '\n' || programa[indice + 5] == ' ' || programa[indice + 5] == feof(fp))
+                                    {
+                                        strcpy(lexema,"write");
+                                        strcpy(token,"write");
+                                        strcpy(valor,"");
+                                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        printf("%c",programa[indice-1]);
+                    }
+            break;
+
+            case 'p':
+                if (programa[indice + 1] == 'r')
+                    {
+                        if (programa[indice + 2] == 'o')
+                        {
+                            if (programa[indice + 3] == 'g')
+                            {
+                                if(programa[indice + 4] == 'r')
+                                {
+                                    if(programa[indice + 5] == 'a')
+                                    {
+                                        if(programa[indice + 6] == 'm')
+                                        {
+                                            if (programa[indice + 7] == '\n' || programa[indice + 7] == ' ' || programa[indice + 7] == feof(fp))
+                                            {
+                                                strcpy(lexema,"program");
+                                                strcpy(token,"start");
+                                                strcpy(valor,"");
+                                                printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                            }
+                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        printf("%c",programa[indice-1]);
+                    }
+            break;
+
+            case 'e':
+            if (programa[indice + 1] == 'n')
+            {
+                if (programa[indice + 2] == 'd')
+                {
+                    if (programa[indice + 3] == '\n' || programa[indice + 3] == ' ' || programa[indice + 3] != feof(fp))
+                    {
+                        strcpy(lexema,"end");
+                        strcpy(token,"delimeter");
+                        strcpy(valor,"");
+                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                    }   
+                }
+            }
+            else{
+                    printf("%c",programa[indice-1]);
+                }
+            break;
+
+            case 'g':
+            if (programa[indice + 1] == 'o')
+            {
+                if (programa[indice + 2] == 't')
+                {
+                    if (programa[indice + 3] == 'o')
+                    {
+                            if (programa[indice + 4] == '\n' || programa[indice + 4] == ' ' || programa[indice + 4] == feof(fp))
+                            {
+                                strcpy(lexema,"goto");
+                                strcpy(token,"goto");
+                                strcpy(valor,"");
+                                printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                            }
+                        
+                    }
+                }
+            }
+            else{
+                    printf("%c",programa[indice-1]);
+                }
+            break;
         
 
 
         default:
-        printf("%c",programa[indice]);
+        printf("%c",programa[indice - 1] );
 
     }
 
@@ -99,7 +273,7 @@ int main()
       
        while(!feof(fp))
        {
-           result=fgets(linha,100,fp);
+           result=fgets(linha,1000,fp);
            if(result)
                 strcat(programa,linha);
            i++;
@@ -110,9 +284,9 @@ int main()
     tamanho=strlen(programa);
  
     while(indice<=tamanho){
-    nextchar();
-    indice ++;
+            nextchar();
+            indice ++;
 
-    }
+        }
     }
 }

@@ -1,5 +1,13 @@
-real
+write
+
+beggin
 
 read
 
-r
+real
+
+program
+
+goto
+
+0
