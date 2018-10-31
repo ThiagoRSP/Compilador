@@ -10,6 +10,7 @@ FILE *fp;
     int tamanho;
     int indice = 0;
     char lexema[100], token[100], valor[100];
+    char tmp[1000];
 
 void nextchar(){
     switch(programa[indice]){
@@ -45,6 +46,20 @@ void nextchar(){
         strcpy(lexema,":");
         strcpy(token,"point");
         strcpy(valor,":");
+        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+        break;
+
+        case '(':
+        strcpy(lexema,"(");
+        strcpy(token,"point");
+        strcpy(valor,"(");
+        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+        break;
+
+        case ')':
+        strcpy(lexema,")");
+        strcpy(token,"point");
+        strcpy(valor,")");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
         break;
 
@@ -130,7 +145,8 @@ void nextchar(){
                 {
                     if (programa[indice + 2] == 'g')
                     {
-                       
+                        if (programa[indice + 3] == 'g')
+                        {
                             if (programa[indice + 4] == 'i')
                             {
                                 if(programa[indice + 5] == 'n')
@@ -144,7 +160,7 @@ void nextchar(){
                                     }
                                 }
                             }
-                        
+                        }
                     }
                 }
                 else{
@@ -249,6 +265,49 @@ void nextchar(){
                     printf("%c",programa[indice-1]);
                 }
             break;
+
+            case 'l':
+            if (programa[indice + 1] == 'o')
+            {
+                if (programa[indice + 2] == 'o')
+                {
+                    if (programa[indice + 3] == 'p')
+                    {
+                            if (programa[indice + 4] == '\n' || programa[indice + 4] == ' ' || programa[indice + 4] == feof(fp))
+                            {
+                                strcpy(lexema,"loop");
+                                strcpy(token,"loop");
+                                strcpy(valor,"");
+                                printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                            }
+                        
+                    }
+                }
+            }
+            else{
+                    printf("%c",programa[indice-1]);
+                }
+            break;
+
+            case 'v':
+            if (programa[indice + 1] == 'a')
+            {
+                if (programa[indice + 2] == 'r')
+                {
+                    if (programa[indice + 3] == '\n' || programa[indice + 3] == ' ' || programa[indice + 3] == feof(fp))
+                    {
+                        strcpy(lexema,"var");
+                        strcpy(token,"var");
+                        strcpy(valor,"");
+                        printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                    }
+                
+                }
+            }
+            else{
+                    printf("%c",programa[indice-1]);
+                }
+            break; 
         
 
 
