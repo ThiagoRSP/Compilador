@@ -1,21 +1,5 @@
-write
 
-beggin
 
-read
-
-var <- 487
-
-real
-
-program
-
-goto
-
-loop
++
 
 0
-
-()
-
-222

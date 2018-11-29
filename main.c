@@ -2,7 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 FILE *fp;
+    
+    char url[] = "arquivo.txt";
+    FILE *arq;    
+
     char *arquivo = "nome.txt";
     char *result;
     char linha[1000];
@@ -10,7 +15,17 @@ FILE *fp;
     int tamanho;
     int indice = 0;
     char lexema[100], token[100], valor[100];
-    char tmp[1000];
+    char tmp[100];
+
+int guardaToken(char token[100]){
+    return token[100];
+}
+
+void sintatico(){
+   
+   
+            
+}
 
 void nextchar(){
     switch(programa[indice]){
@@ -18,7 +33,9 @@ void nextchar(){
         strcpy(lexema,"+");
         strcpy(token,"operator");
         strcpy(valor,"sum");
-        printf("Lexema:%s\nToken:%s\nValor:%s\n",lexema,token,valor);
+        printf("\nLexema:%s\nToken:%s\nValor:%s\n",lexema,token,valor);
+        indice++;
+        sintatico();
         break;
 
         case '0':
@@ -26,6 +43,8 @@ void nextchar(){
         strcpy(token,"zero");
         strcpy(valor,"0");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+        indice++;
+        sintatico();
         break;
 
         case '1':
@@ -33,6 +52,7 @@ void nextchar(){
         strcpy(token,"one");
         strcpy(valor,"1");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+        indice++;
         break;
 
         case ';':
@@ -40,6 +60,7 @@ void nextchar(){
         strcpy(token,"point");
         strcpy(valor,";");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+        indice++;
         break;
 
         case ':':
@@ -47,6 +68,7 @@ void nextchar(){
         strcpy(token,"point");
         strcpy(valor,":");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+        indice++;
         break;
 
         case '(':
@@ -54,6 +76,7 @@ void nextchar(){
         strcpy(token,"point");
         strcpy(valor,"(");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+        indice++;
         break;
 
         case ')':
@@ -61,6 +84,7 @@ void nextchar(){
         strcpy(token,"point");
         strcpy(valor,")");
         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+        indice++;
         break;
 
         case '<':
@@ -68,8 +92,10 @@ void nextchar(){
             {
                 strcpy(lexema,"<-");
                 strcpy(token,"attr");
-                strcpy(valor,"");
+                strcpy(valor,"<-");
                 printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+                indice++;
+                indice++;
             }
             break;
 
@@ -87,6 +113,7 @@ void nextchar(){
                             strcpy(token,"type");
                             strcpy(valor,"");
                             printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor); 
+                            indice = indice + 5;
                         }
                         
                     }
@@ -98,6 +125,7 @@ void nextchar(){
                             strcpy(token,"read");
                             strcpy(valor,"");
                             printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                            indice = indice + 5;
                         }
                     }
                 }
@@ -121,12 +149,13 @@ void nextchar(){
                             {
                                 if(programa[indice + 6] == 'r')
                                 {
-                                    if (programa[indice + 7] == '\n' || programa[indice + 7] == ' ' || programa[indice + 7] != feof(fp))
+                                    if (programa[indice + 7] == '\n' || programa[indice + 7] == ' ' || programa[indice + 7] == feof(fp))
                                     {
                                         strcpy(lexema,"integer");
                                         strcpy(token,"type");
                                         strcpy(valor,"");
                                         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                        indice = indice + 8;
                                     }
                                  }
                             }
@@ -157,6 +186,7 @@ void nextchar(){
                                         strcpy(token,"delimeter");
                                         strcpy(valor,"");
                                         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                        indice = indice + 7;
                                     }
                                 }
                             }
@@ -183,6 +213,7 @@ void nextchar(){
                                         strcpy(token,"write");
                                         strcpy(valor,"");
                                         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                        indice = indice + 6;
                                     }
                                 }
                             }
@@ -212,6 +243,7 @@ void nextchar(){
                                                 strcpy(token,"start");
                                                 strcpy(valor,"");
                                                 printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                                indice = indice + 8;
                                             }
                                          }
                                     }
@@ -229,12 +261,13 @@ void nextchar(){
             {
                 if (programa[indice + 2] == 'd')
                 {
-                    if (programa[indice + 3] == '\n' || programa[indice + 3] == ' ' || programa[indice + 3] != feof(fp))
+                    if (programa[indice + 3] == '\n' || programa[indice + 3] == ' ' || programa[indice + 3] == feof(fp))
                     {
                         strcpy(lexema,"end");
                         strcpy(token,"delimeter");
                         strcpy(valor,"");
                         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                        indice = indice + 4;
                     }   
                 }
             }
@@ -256,6 +289,7 @@ void nextchar(){
                                 strcpy(token,"goto");
                                 strcpy(valor,"");
                                 printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                indice = indice + 5;
                             }
                         
                     }
@@ -279,13 +313,25 @@ void nextchar(){
                                 strcpy(token,"loop");
                                 strcpy(valor,"");
                                 printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                                indice = indice + 5;
+                            }
+                            else{
+                                printf("\n\nErro léxico\n");
+                                break;
                             }
                         
                     }
+                    else{
+                        printf("Erro Léxico\n");
+                        break;
+                    }
+                }
+                else{
+                    printf("Erro Léxico\n");
                 }
             }
             else{
-                    printf("%c",programa[indice-1]);
+                    printf("Erro Léxico\n");
                 }
             break;
 
@@ -300,6 +346,7 @@ void nextchar(){
                         strcpy(token,"var");
                         strcpy(valor,"");
                         printf("\nLexema: %s\n Token: %s\n Valor: %s\n",lexema,token,valor);
+                        indice = indice + 4;
                     }
                 
                 }
@@ -308,11 +355,15 @@ void nextchar(){
                     printf("%c",programa[indice-1]);
                 }
             break; 
+
+
         
 
 
         default:
-        printf("%c",programa[indice - 1] );
+
+                     printf("%c",programa[indice - 1] );
+
 
     }
 
@@ -345,7 +396,15 @@ int main()
     while(indice<=tamanho){
             nextchar();
             indice ++;
-
         }
+
     }
+    /*arq = fopen(url, "w");
+    if(arq == NULL)
+            printf("Erro, nao foi possivel abrir o arquivo\n");
+    else{
+        fprintf(arq,"Teste\n");
+    }
+    fclose(arq);*/
+    printf("\n");
 }
