@@ -10,6 +10,14 @@ id
 point2P
 type
 pointPV
+id
+point2P
+type
+pointPV
+id
+point2P
+type
+pointPV
 delimiterBG
 loop
 id
@@ -23,7 +31,7 @@ id
 attr
 id
 operator
-zero
+one
 pointPV
 delimiter
 delimiter
@@ -32,6 +40,11 @@ attr
 id
 operator
 one
+pointPV
+read
+pointAP
+id
+pointFP
 pointPV
 delimiter
 

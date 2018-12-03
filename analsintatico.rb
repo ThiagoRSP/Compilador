@@ -1,8 +1,13 @@
 #Armazenar palavras do arquivo
 array1 = []
+array2 = []
+arrayId = []
 #Variável pra incrementar
 i = 0
 k = 0
+a = 0
+h = 0
+
 
 def esperar(variavel,palavra)
 	if variavel == palavra
@@ -292,7 +297,134 @@ File.open('arq.txt', 'r') do |f1|
     end
    
 end
+File.open("arq2.txt", "r") do |f2|
+	while line2 = f2.gets
+		array2[a] = line2
+		a+=1
+	end	
+end
+ 	arrayRW = []
+    arrayAttr = []
+def semantico1(array1,array2,arrayId,arrayAttr,arrayRW)
+
+	a = 0
+	w = 0
+    nome_do_programa = array2[1]
+   
+
+    if ((nome_do_programa == "program\n") || (nome_do_programa == "var\n") || (nome_do_programa == "end\n") || (nome_do_programa == "begin\n") || (nome_do_programa == "loop\n"))
+    	puts "O nome do programa não pode ser uma palavra reservada"
+    else
+    	array1.each_with_index do |item, index|
+    		if ((item == "id\n") && (array1[index+1] == "point2P\n"))
+    			puts "#{index}"
+    			arrayId.push(index)
+    		elsif ((item == "id\n") && (array1[index - 1] == "pointAP\n") && array1[index + 1] == "pointFP\n" )
+    			arrayRW.push(index)
+    		elsif ((item == "id\n") && ((array1[index - 1] == "attr\n")||(array1[index + 1] == "attr\n")))
+    			arrayAttr.push(index)
+    					
+
+    		end
+  			
+		end
+
+    end
+end
+
+arrayLexema = []
+arrayLexemaAttr = []
+arrayLexemaRW = []
+
+def semantico2(array1,array2,arrayId,arrayLexema)
+	arrayId.each do |id|
+		array2.each_with_index do |lexema,index|
+			if id == index
+				arrayLexema.push(lexema)
+			end
+		end	
+	end
+end
+ 
+ def semantico3(array1,array2,arrayAttr,arrayLexemaAttr)
+	arrayAttr.each do |id|
+		array2.each_with_index do |lexema,index|
+			if id == index
+				arrayLexemaAttr.push(lexema)
+			end
+		end	
+	end
+end
+ 
+ def semantico4(array1,array2,arrayRW,arrayLexemaRW)
+	arrayRW.each do |id|
+		array2.each_with_index do |lexema,index|
+			if id == index
+				arrayLexemaRW.push(lexema)
+			end
+		end	
+	end
+end
+ 
+ 
+
+def posFinal(arrayLexema)
+	if arrayLexema.uniq.length == arrayLexema.length
+		puts "Ids válidos"
+	else
+		puts "Variável duplicada"
+		
+	end
+	
+end
 
 j = program(array1)
 
     main(array1,j)
+
+   semantico1(array1,array2,arrayId,arrayAttr,arrayRW)
+
+
+  semantico2(array1,array2,arrayId,arrayLexema)
+  semantico3(array1,array2,arrayAttr,arrayLexemaAttr)
+  semantico4(array1,array2,arrayRW,arrayLexemaRW)
+
+  arrayLexema.each do |lexema|
+  	puts "Variável declarada: #{lexema}"
+  end	
+
+
+  arrayLexemaRW.each do |rw|
+  	puts "Variável de read ou write: #{rw}"
+  end	
+
+
+  arrayLexemaAttr.each do |at|
+  	puts "Variável de atribuição: #{at}"
+  end	
+
+  posFinal(arrayLexema)
+
+
+
+
+if (arrayLexema - arrayLexemaAttr).empty?
+	puts "É zero"
+else
+	puts"ERRRROU"
+end
+lengthLexema = arrayLexema.uniq.length
+lengthRW = arrayLexemaRW.uniq.length
+lengthAttr = arrayLexemaAttr.uniq.length
+
+if (arrayLexema - arrayLexemaAttr).length == (lengthLexema - lengthAttr)
+	puts "Tudo certo nas Atribuições"
+else
+	puts "Erro nas atribuições"
+end
+
+if (arrayLexema - arrayLexemaRW).length == (lengthLexema - lengthRW)
+	puts "Tudo certo nos Reads e Writes"
+else
+	puts "Erro nos Reads e Writes"
+end
